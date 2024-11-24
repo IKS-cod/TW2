@@ -1,4 +1,5 @@
-package ru.skypro.homework.dto;
+package TW2.dto;
+
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
