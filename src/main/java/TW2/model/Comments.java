@@ -1,4 +1,4 @@
-package ru.skypro.homework.model;
+package TW2.model;
 
 import javax.persistence.*;
 import java.util.Objects;
