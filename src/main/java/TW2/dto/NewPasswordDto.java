@@ -4,19 +4,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
 
-public class NewPassword {
+public class NewPasswordDto {
     @Schema(type = "string", description = "текущий пароль", minLength = 8, maxLength = 16)
     private String currentPassword;
 
     @Schema(type = "string", description = "новый пароль", minLength = 8, maxLength = 16)
     private String newPassword;
 
-    public NewPassword(String currentPassword, String newPassword) {
+    public NewPasswordDto(String currentPassword, String newPassword) {
         this.currentPassword = currentPassword;
         this.newPassword = newPassword;
     }
 
-    public NewPassword() {
+    public NewPasswordDto() {
 
     }
 
@@ -40,7 +40,7 @@ public class NewPassword {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NewPassword that = (NewPassword) o;
+        NewPasswordDto that = (NewPasswordDto) o;
         return Objects.equals(currentPassword, that.currentPassword) && Objects.equals(newPassword, that.newPassword);
     }
 

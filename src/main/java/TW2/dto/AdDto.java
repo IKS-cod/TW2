@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
 
-public class Ad {
+public class AdDto {
     @Schema(type = "integer", format = "int32", description = "id автора объявления")
     private Integer author;
 
@@ -20,7 +20,7 @@ public class Ad {
     @Schema(type = "string", description = "заголовок объявления")
     private String title;
 
-    public Ad(Integer author, String image, Integer pk, Integer price, String title) {
+    public AdDto(Integer author, String image, Integer pk, Integer price, String title) {
         this.author = author;
         this.image = image;
         this.pk = pk;
@@ -28,7 +28,7 @@ public class Ad {
         this.title = title;
     }
 
-    public Ad() {
+    public AdDto() {
     }
 
     public Integer getAuthor() {
@@ -75,8 +75,8 @@ public class Ad {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ad ad = (Ad) o;
-        return Objects.equals(author, ad.author) && Objects.equals(image, ad.image) && Objects.equals(pk, ad.pk) && Objects.equals(price, ad.price) && Objects.equals(title, ad.title);
+        AdDto adDto = (AdDto) o;
+        return Objects.equals(author, adDto.author) && Objects.equals(image, adDto.image) && Objects.equals(pk, adDto.pk) && Objects.equals(price, adDto.price) && Objects.equals(title, adDto.title);
     }
 
     @Override

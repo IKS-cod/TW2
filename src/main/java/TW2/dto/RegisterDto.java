@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public class Register {
+public class RegisterDto {
     @Schema(type = "string", description = "логин", minLength = 4, maxLength = 32)
     private String username;
 
@@ -25,12 +25,12 @@ public class Register {
     @Schema(type = "string", description = "роль пользователя", allowableValues = {"USER", "ADMIN"})
     private Role role;
 
-    public Register(String username,
-                    String password,
-                    String firstName,
-                    String lastName,
-                    String phone,
-                    Role role) {
+    public RegisterDto(String username,
+                       String password,
+                       String firstName,
+                       String lastName,
+                       String phone,
+                       Role role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -39,7 +39,7 @@ public class Register {
         this.role = role;
     }
 
-    public Register() {
+    public RegisterDto() {
     }
 
     public String getUsername() {
@@ -94,8 +94,8 @@ public class Register {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Register register = (Register) o;
-        return Objects.equals(username, register.username) && Objects.equals(password, register.password) && Objects.equals(firstName, register.firstName) && Objects.equals(lastName, register.lastName) && Objects.equals(phone, register.phone) && role == register.role;
+        RegisterDto registerDto = (RegisterDto) o;
+        return Objects.equals(username, registerDto.username) && Objects.equals(password, registerDto.password) && Objects.equals(firstName, registerDto.firstName) && Objects.equals(lastName, registerDto.lastName) && Objects.equals(phone, registerDto.phone) && role == registerDto.role;
     }
 
     @Override

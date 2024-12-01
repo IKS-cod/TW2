@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 
 @Data
-public class Login {
+public class LoginDto {
 
     @Schema(type = "string", description = "пароль", minLength = 8, maxLength = 16)
     private String password;
@@ -14,12 +14,12 @@ public class Login {
     @Schema(type = "string", description = "логин", minLength = 4, maxLength = 32)
     private String username;
 
-    public Login(String username, String password) {
+    public LoginDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Login() {
+    public LoginDto() {
     }
 
     public String getUsername() {
@@ -42,8 +42,8 @@ public class Login {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Login login = (Login) o;
-        return Objects.equals(username, login.username) && Objects.equals(password, login.password);
+        LoginDto loginDto = (LoginDto) o;
+        return Objects.equals(username, loginDto.username) && Objects.equals(password, loginDto.password);
     }
 
     @Override

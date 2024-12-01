@@ -1,6 +1,6 @@
 package TW2.controller;
-import TW2.dto.Comment;
-import TW2.dto.Comments;
+import TW2.dto.CommentDto;
+import TW2.dto.CommentsDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +17,14 @@ public class CommentController {
 
     @GetMapping("/{id}/comments")
     @Operation(summary = "Получение комментариев объявления")
-    public Comments getComments(@PathVariable Integer id) {
+    public CommentsDto getComments(@PathVariable Integer id) {
         // Логика получения комментариев для объявления
         return commentService.getCommentsForAd(id);
     }
 
     @PostMapping("/{id}/comments")
     @Operation(summary = "Добавление комментария к объявлению")
-    public Comment addComment(@PathVariable Integer adId, @RequestBody CreateOrUpdateComment comment) {
+    public CommentDto addComment(@PathVariable Integer adId, @RequestBody CreateOrUpdateComment comment) {
         // Логика добавления комментария к объявлению
         return commentService.addComment(adId, comment);
     }
