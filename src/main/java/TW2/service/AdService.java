@@ -1,25 +1,25 @@
 package TW2.service;
 
-import TW2.dto.Ad;
-import TW2.dto.Ads;
-import TW2.dto.CreateOrUpdateAd;
-import TW2.dto.ExtendedAd;
+import TW2.dto.AdDto;
+import TW2.dto.AdsDto;
+import TW2.dto.CreateOrUpdateAdDto;
+import TW2.dto.ExtendedAdDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class AdService {
-    public Ads getAllAds() {
+    public AdsDto getAllAds() {
         return null;
     }
 
-    public Ad addAd(MultipartFile image, CreateOrUpdateAd ad) {
+    public AdDto addAd(MultipartFile image, CreateOrUpdateAdDto ad) {
         return null;
     }
 
-    public ExtendedAd getAdById(Integer id) {
+    public ExtendedAdDto getAdById(Integer id) {
         return null;
     }
 
-    public void updateAd(Integer id, CreateOrUpdateAd ad) {
+    public void updateAd(Integer id, CreateOrUpdateAdDto ad) {
     }
 
     public void removeAd(Integer id) {

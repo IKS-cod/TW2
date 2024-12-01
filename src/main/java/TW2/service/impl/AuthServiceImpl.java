@@ -1,6 +1,6 @@
 package TW2.service.impl;
 
-import TW2.dto.Register;
+import TW2.dto.RegisterDto;
 import TW2.service.AuthService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,16 +31,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean register(Register register) {
-        if (manager.userExists(register.getUsername())) {
+    public boolean register(RegisterDto registerDto) {
+        if (manager.userExists(registerDto.getUsername())) {
             return false;
         }
         manager.createUser(
                 User.builder()
                         .passwordEncoder(this.encoder::encode)
-                        .password(register.getPassword())
-                        .username(register.getUsername())
-                        .roles(register.getRole().name())
+                        .password(registerDto.getPassword())
+                        .username(registerDto.getUsername())
+                        .roles(registerDto.getRole().name())
                         .build());
         return true;
     }

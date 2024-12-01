@@ -2,22 +2,21 @@ package TW2.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Ads {
+public class AdsDto {
     @Schema(type = "integer", format = "int32", description = "общее количество объявлений")
     private Integer count;
 
     @Schema(description = "Список объявлений")
-    private List<Ad> results;
+    private List<AdDto> results;
 
-    public Ads(Integer count, List<Ad> results) {
+    public AdsDto(Integer count, List<AdDto> results) {
         this.count = count;
         this.results = results;
     }
-    public Ads() {
+    public AdsDto() {
     }
 
     public Integer getCount() {
@@ -28,20 +27,20 @@ public class Ads {
         this.count = count;
     }
 
-    public List<Ad> getResults() {
+    public List<AdDto> getResults() {
         return results;
     }
 
-    public void setResults(List<Ad> results) {
+    public void setResults(List<AdDto> results) {
         this.results = results;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Ads)) return false;
-        Ads ads = (Ads) o;
-        return Objects.equals(getCount(), ads.getCount()) && Objects.equals(getResults(), ads.getResults());
+        if (!(o instanceof AdsDto)) return false;
+        AdsDto adsDto = (AdsDto) o;
+        return Objects.equals(getCount(), adsDto.getCount()) && Objects.equals(getResults(), adsDto.getResults());
     }
 
     @Override

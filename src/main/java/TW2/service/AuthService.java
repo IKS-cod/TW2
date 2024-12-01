@@ -1,10 +1,10 @@
 package TW2.service;
 
 
-import TW2.dto.Register;
+import TW2.dto.RegisterDto;
 
 public interface AuthService {
     boolean login(String userName, String password);
 
-    boolean register(Register register);
+    boolean register(RegisterDto registerDto);
 }

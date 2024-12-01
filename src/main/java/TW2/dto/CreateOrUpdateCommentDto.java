@@ -4,14 +4,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
 
-public class CreateOrUpdateComment {
+public class CreateOrUpdateCommentDto {
     @Schema(required = true, type = "string", description = "текст комментария", minLength = 8, maxLength = 64)
     private String text;
 
     // Конструкторы
-    public CreateOrUpdateComment() {}
+    public CreateOrUpdateCommentDto() {}
 
-    public CreateOrUpdateComment(String text) {
+    public CreateOrUpdateCommentDto(String text) {
         this.text = text;
     }
 
@@ -28,7 +28,7 @@ public class CreateOrUpdateComment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CreateOrUpdateComment that = (CreateOrUpdateComment) o;
+        CreateOrUpdateCommentDto that = (CreateOrUpdateCommentDto) o;
         return Objects.equals(text, that.text);
     }
 
