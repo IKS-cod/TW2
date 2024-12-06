@@ -2,6 +2,7 @@ package TW2.service.impl;
 
 import TW2.dto.RegisterDto;
 import TW2.mapper.Mappers;
+import TW2.model.Users;
 import TW2.repository.UsersRepository;
 import TW2.service.AuthService;
 import org.slf4j.Logger;
