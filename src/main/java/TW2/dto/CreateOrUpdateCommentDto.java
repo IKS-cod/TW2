@@ -2,45 +2,46 @@ package TW2.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Objects;
-
+/**
+ * DTO (Data Transfer Object) для создания или обновления комментария.
+ * <p>
+ * Этот класс представляет данные, необходимые для создания или обновления комментария,
+ * включая текст комментария.
+ * </p>
+ */
 public class CreateOrUpdateCommentDto {
     @Schema(required = true, type = "string", description = "текст комментария", minLength = 8, maxLength = 64)
     private String text;
 
-    // Конструкторы
+    /**
+     * Конструктор по умолчанию.
+     */
     public CreateOrUpdateCommentDto() {}
 
+    /**
+     * Конструктор для создания объекта CreateOrUpdateCommentDto с заданным текстом комментария.
+     *
+     * @param text Текст комментария.
+     */
     public CreateOrUpdateCommentDto(String text) {
         this.text = text;
     }
 
-    // Геттеры и сеттеры
+    /**
+     * Получает текст комментария.
+     *
+     * @return Текст комментария.
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Устанавливает текст комментария.
+     *
+     * @param text Текст комментария.
+     */
     public void setText(String text) {
         this.text = text;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CreateOrUpdateCommentDto that = (CreateOrUpdateCommentDto) o;
-        return Objects.equals(text, that.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(text);
-    }
-
-    @Override
-    public String toString() {
-        return "CreateOrUpdateComment{" +
-                "text='" + text + '\'' +
-                '}';
     }
 }
