@@ -5,6 +5,7 @@ import TW2.dto.UpdateUserDto;
 import TW2.dto.UserDto;
 import TW2.mapper.Mappers;
 import TW2.model.Users;
+import TW2.repository.AvatarsRepository;
 import TW2.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

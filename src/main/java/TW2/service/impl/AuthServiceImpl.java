@@ -5,14 +5,13 @@ import TW2.mapper.Mappers;
 import TW2.model.Users;
 import TW2.repository.UsersRepository;
 import TW2.service.AuthService;
+import TW2.service.AvatarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

@@ -5,6 +5,7 @@ import TW2.dto.AdsDto;
 import TW2.dto.CreateOrUpdateAdDto;
 import TW2.dto.ExtendedAdDto;
 import TW2.service.AdService;
+import TW2.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;

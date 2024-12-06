@@ -1,15 +1,19 @@
 package TW2.service;
 
+
+
 import TW2.dto.CommentDto;
 import TW2.dto.CommentsDto;
 import TW2.dto.CreateOrUpdateCommentDto;
 import TW2.exception.AdNotFoundException;
 import TW2.exception.CommentNotFoundException;
+import TW2.mapper.Mappers;
+import TW2.model.Avatars;
 import TW2.model.Comments;
 import TW2.repository.AdsRepository;
 import TW2.repository.AvatarsRepository;
 import TW2.repository.CommentsRepository;
-import org.mapstruct.factory.Mappers;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -4,6 +4,8 @@ package TW2.controller;
 import TW2.dto.NewPasswordDto;
 import TW2.dto.UpdateUserDto;
 import TW2.dto.UserDto;
+import TW2.service.AvatarService;
+import TW2.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
