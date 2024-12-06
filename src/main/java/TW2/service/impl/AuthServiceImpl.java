@@ -1,48 +1,92 @@
 package TW2.service.impl;
 
 import TW2.dto.RegisterDto;
+import TW2.mapper.Mappers;
+import TW2.repository.UsersRepository;
 import TW2.service.AuthService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 
+/**
+ * Реализация сервиса аутентификации пользователей.
+ * <p>
+ * Этот класс предоставляет методы для входа и регистрации пользователей,
+ * а также управления их аватарами.
+ * </p>
+ */
 @Service
 public class AuthServiceImpl implements AuthService {
+    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    private final UserDetailsManager manager;
+    private final Mappers mappers;
+    private final UsersRepository usersRepository;
+    private final AvatarService avatarService;
+    private final UserDetailsService userDetailsService;
     private final PasswordEncoder encoder;
 
-    public AuthServiceImpl(UserDetailsManager manager,
+    public AuthServiceImpl(Mappers mappers,
+                           UsersRepository usersRepository,
+                           AvatarService avatarService,
+                           UserDetailsService userDetailsService,
                            PasswordEncoder passwordEncoder) {
-        this.manager = manager;
+        this.mappers = mappers;
+        this.usersRepository = usersRepository;
+        this.avatarService = avatarService;
+        this.userDetailsService = userDetailsService;
         this.encoder = passwordEncoder;
     }
 
+    /**
+     * Выполняет аутентификацию пользователя по имени пользователя и паролю.
+     *
+     * @param userName имя пользователя (логин).
+     * @param password пароль пользователя.
+     * @return true, если аутентификация прошла успешно; иначе false.
+     */
     @Override
     public boolean login(String userName, String password) {
-        if (!manager.userExists(userName)) {
-            return false;
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+            boolean isPasswordMatch = encoder.matches(password, userDetails.getPassword());
+            logger.info("User {} logged in successfully: {}", userName, isPasswordMatch);
+            return isPasswordMatch;
+        } catch (UsernameNotFoundException e) {
+            logger.warn("Login attempt failed for username: {}", userName);
+            return false; // Пользователь не найден
         }
-        UserDetails userDetails = manager.loadUserByUsername(userName);
-        return encoder.matches(password, userDetails.getPassword());
     }
 
+    /**
+     * Регистрирует нового пользователя в системе.
+     *
+     * @param registerDto объект, содержащий данные для регистрации пользователя.
+     * @return true, если регистрация прошла успешно; иначе false.
+     * @throws IOException если возникает ошибка при сохранении данных или загрузке аватара.
+     */
     @Override
-    public boolean register(RegisterDto registerDto) {
-        if (manager.userExists(registerDto.getUsername())) {
-            return false;
+    public boolean register(RegisterDto registerDto) throws IOException {
+        if (usersRepository.findByEmail(registerDto.getUsername()).isPresent()) {
+            logger.warn("Registration attempt failed: User with email {} already exists", registerDto.getUsername());
+            return false; // Пользователь с таким email уже существует
         }
-        manager.createUser(
-                User.builder()
-                        .passwordEncoder(this.encoder::encode)
-                        .password(registerDto.getPassword())
-                        .username(registerDto.getUsername())
-                        .roles(registerDto.getRole().name())
-                        .build());
-        return true;
-    }
 
+        Users users = mappers.toUsers(registerDto);
+        users.setPassword(encoder.encode(registerDto.getPassword()));
+        usersRepository.save(users);
+
+        // Загружаем дефолтное изображение
+        avatarService.saveDefaultAvatar(users);
+
+        logger.info("User registered successfully with email: {}", registerDto.getUsername());
+        return true; // Регистрация успешна
+    }
 }
