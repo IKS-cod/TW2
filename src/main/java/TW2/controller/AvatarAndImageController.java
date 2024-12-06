@@ -1,4 +1,6 @@
 package TW2.controller;
+import TW2.service.ImageService;
+import TW2.service.AvatarService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
