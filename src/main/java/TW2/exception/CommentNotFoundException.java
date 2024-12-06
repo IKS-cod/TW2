@@ -1,5 +1,8 @@
 package TW2.exception;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Исключение, которое выбрасывается, когда комментарий не найден.
  * <p>
@@ -8,6 +11,7 @@ package TW2.exception;
  * </p>
  */
 public class CommentNotFoundException extends RuntimeException {
+    private static final Logger logger = Logger.getLogger(CommentNotFoundException.class.getName());
 
     /**
      * Создает новое исключение {@code CommentNotFoundException} с заданным сообщением.
@@ -16,5 +20,6 @@ public class CommentNotFoundException extends RuntimeException {
      */
     public CommentNotFoundException(String message) {
         super(message);
+        logger.log(Level.SEVERE, "CommentNotFoundException: {0}", message);
     }
 }

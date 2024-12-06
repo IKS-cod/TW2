@@ -1,5 +1,8 @@
 package TW2.exception;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Исключение, которое выбрасывается, когда изображение не найдено.
  * <p>
@@ -8,6 +11,7 @@ package TW2.exception;
  * </p>
  */
 public class ImageNotFoundException extends RuntimeException {
+    private static final Logger logger = Logger.getLogger(ImageNotFoundException.class.getName());
 
     /**
      * Создает новое исключение {@code ImageNotFoundException} с заданным сообщением.
@@ -16,5 +20,6 @@ public class ImageNotFoundException extends RuntimeException {
      */
     public ImageNotFoundException(String message) {
         super(message);
+        logger.log(Level.SEVERE, "ImageNotFoundException: {0}", message);
     }
 }
