@@ -1,10 +1,14 @@
 package TW2.dto;
 
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.util.Objects;
-
+/**
+ * DTO (Data Transfer Object) для комментария.
+ * <p>
+ * Этот класс представляет данные комментария, включая информацию о авторе, времени создания
+ * и тексте комментария.
+ * </p>
+ */
 public class CommentDto {
     @Schema(type = "integer", format = "int32", description = "id автора комментария")
     private Integer author;
@@ -16,7 +20,7 @@ public class CommentDto {
     private String authorFirstName;
 
     @Schema(type = "integer", format = "int64", description = "дата и время создания комментария в миллисекундах с 00:00:00 01.01.1970")
-    private Integer createdAt;
+    private Long createdAt;
 
     @Schema(type = "integer", format = "int32", description = "id комментария")
     private Integer pk;
@@ -24,10 +28,20 @@ public class CommentDto {
     @Schema(type = "string", description = "текст комментария")
     private String text;
 
+    /**
+     * Конструктор для создания объекта CommentDto с заданными параметрами.
+     *
+     * @param author          id автора комментария.
+     * @param authorImage     ссылка на аватар автора комментария.
+     * @param authorFirstName имя создателя комментария.
+     * @param createdAt       дата и время создания комментария в миллисекундах.
+     * @param pk              id комментария.
+     * @param text            текст комментария.
+     */
     public CommentDto(Integer author,
                       String authorImage,
                       String authorFirstName,
-                      Integer createdAt,
+                      Long createdAt,
                       Integer pk,
                       String text) {
         this.author = author;
@@ -38,79 +52,117 @@ public class CommentDto {
         this.text = text;
     }
 
+    /**
+     * Конструктор по умолчанию.
+     */
     public CommentDto() {
     }
 
+    /**
+     * Получает id автора комментария.
+     *
+     * @return id автора комментария.
+     */
     public Integer getAuthor() {
         return author;
     }
 
+    /**
+     * Устанавливает id автора комментария.
+     *
+     * @param author id автора комментария.
+     */
     public void setAuthor(Integer author) {
         this.author = author;
     }
 
+    /**
+     * Получает ссылку на аватар автора комментария.
+     *
+     * @return ссылка на аватар автора комментария.
+     */
     public String getAuthorImage() {
         return authorImage;
     }
 
+    /**
+     * Устанавливает ссылку на аватар автора комментария.
+     *
+     * @param authorImage ссылка на аватар автора комментария.
+     */
     public void setAuthorImage(String authorImage) {
         this.authorImage = authorImage;
     }
 
+    /**
+     * Получает имя создателя комментария.
+     *
+     * @return имя создателя комментария.
+     */
     public String getAuthorFirstName() {
         return authorFirstName;
     }
 
+    /**
+     * Устанавливает имя создателя комментария.
+     *
+     * @param authorFirstName имя создателя комментария.
+     */
     public void setAuthorFirstName(String authorFirstName) {
         this.authorFirstName = authorFirstName;
     }
 
-    public Integer getCreatedAt() {
+    /**
+     * Получает дату и время создания комментария в миллисекундах.
+     *
+     * @return дата и время создания комментария в миллисекундах с 00:00:00 01.01.1970.
+     */
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Integer createdAt) {
+    /**
+     * Устанавливает дату и время создания комментария в миллисекундах.
+     *
+     * @param createdAt дата и время создания комментария в миллисекундах с 00:00:00 01.01.1970.
+     */
+    public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
     }
 
+    /**
+     * Получает id комментария.
+     *
+     * @return id комментария.
+     */
     public Integer getPk() {
         return pk;
     }
 
+    /**
+     * Устанавливает id комментария.
+     *
+     * @param pk id комментария.
+     */
     public void setPk(Integer pk) {
         this.pk = pk;
     }
 
+    /**
+     * Получает текст комментария.
+     *
+     * @return текст комментария.
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Устанавливает текст комментария.
+     *
+     * @param text текст комментария.
+     */
     public void setText(String text) {
         this.text = text;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CommentDto commentDto = (CommentDto) o;
-        return Objects.equals(author, commentDto.author) && Objects.equals(authorImage, commentDto.authorImage) && Objects.equals(authorFirstName, commentDto.authorFirstName) && Objects.equals(createdAt, commentDto.createdAt) && Objects.equals(pk, commentDto.pk) && Objects.equals(text, commentDto.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(author, authorImage, authorFirstName, createdAt, pk, text);
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "author=" + author +
-                ", authorImage='" + authorImage + '\'' +
-                ", authorFirstName='" + authorFirstName + '\'' +
-                ", createdAt=" + createdAt +
-                ", pk=" + pk +
-                ", text='" + text + '\'' +
-                '}';
     }
 }
