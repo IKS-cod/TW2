@@ -1,26 +1,27 @@
 package TW2.dto;
 
+import TW2.service.ValidationService;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * DTO (Data Transfer Object) для обновления пароля пользователя.
  * <p>
- * Этот класс представляет данные, необходимые для изменения пароля, включая текущий пароль
- * и новый пароль.
+ * Этот класс представляет данные, необходимые для изменения пароля, включая текущий и новый пароли.
+ * Оба пароля должны содержать от 8 до 16 символов.
  * </p>
  */
 public class NewPasswordDto {
-    @Schema(type = "string", description = "текущий пароль", minLength = 8, maxLength = 16)
+    @Schema(type = "string", description = "Текущий пароль пользователя", minLength = 8, maxLength = 16)
     private String currentPassword;
 
-    @Schema(type = "string", description = "новый пароль", minLength = 8, maxLength = 16)
+    @Schema(type = "string", description = "Новый пароль пользователя", minLength = 8, maxLength = 16)
     private String newPassword;
 
     /**
      * Конструктор для создания объекта NewPasswordDto с заданными параметрами.
      *
-     * @param currentPassword текущий пароль пользователя.
-     * @param newPassword     новый пароль пользователя.
+     * @param currentPassword текущий пароль пользователя. Должен содержать от 8 до 16 символов.
+     * @param newPassword     новый пароль пользователя. Должен содержать от 8 до 16 символов.
      */
     public NewPasswordDto(String currentPassword, String newPassword) {
         this.currentPassword = currentPassword;
@@ -30,8 +31,7 @@ public class NewPasswordDto {
     /**
      * Конструктор по умолчанию.
      */
-    public NewPasswordDto() {
-    }
+    public NewPasswordDto() {}
 
     /**
      * Получает текущий пароль пользователя.
@@ -45,10 +45,15 @@ public class NewPasswordDto {
     /**
      * Устанавливает текущий пароль пользователя.
      *
-     * @param currentPassword текущий пароль пользователя.
+     * @param currentPassword текущий пароль пользователя. Должен содержать от 8 до 16 символов.
+     * @throws IllegalArgumentException Если длина текущего пароля не соответствует требованиям.
      */
     public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
+        if (ValidationService.isValidLength(currentPassword, 8, 16)) {
+            this.currentPassword = currentPassword;
+        } else {
+            throw new IllegalArgumentException("Пароль должен содержать от 8 до 16 символов");
+        }
     }
 
     /**
@@ -63,10 +68,14 @@ public class NewPasswordDto {
     /**
      * Устанавливает новый пароль пользователя.
      *
-     * @param newPassword новый пароль пользователя.
+     * @param newPassword новый пароль пользователя. Должен содержать от 8 до 16 символов.
+     * @throws IllegalArgumentException Если длина нового пароля не соответствует требованиям.
      */
     public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+        if (ValidationService.isValidLength(newPassword, 8, 16)) {
+            this.newPassword = newPassword;
+        } else {
+            throw new IllegalArgumentException("Пароль должен содержать от 8 до 16 символов");
+        }
     }
 }
-
