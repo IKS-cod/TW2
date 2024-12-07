@@ -1,4 +1,5 @@
 package TW2.dto;
+import TW2.service.ValidationService;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -6,36 +7,42 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * <p>
  * Этот класс представляет данные, необходимые для регистрации нового пользователя,
  * включая логин, пароль, имя, фамилию, телефон и роль.
+ * Логин должен содержать от 4 до 32 символов и быть в формате электронной почты.
+ * Пароль должен содержать от 8 до 16 символов.
+ * Имя и фамилия должны содержать от 2 до 16 букв.
+ * Телефон должен быть в формате +7(000)000-00-00.
  * </p>
  */
 public class RegisterDto {
-    @Schema(type = "string", description = "логин", minLength = 4, maxLength = 32)
+
+    @Schema(type = "string", description = "Логин пользователя (формат: mail@gmail.com)", minLength = 4, maxLength = 32)
     private String username;
 
-    @Schema(type = "string", description = "пароль", minLength = 8, maxLength = 16)
+    @Schema(type = "string", description = "Пароль пользователя", minLength = 8, maxLength = 16)
     private String password;
 
-    @Schema(type = "string", description = "имя пользователя", minLength = 2, maxLength = 16)
+    @Schema(type = "string", description = "Имя пользователя", minLength = 2, maxLength = 16)
     private String firstName;
 
-    @Schema(type = "string", description = "фамилия пользователя", minLength = 2, maxLength = 16)
+    @Schema(type = "string", description = "Фамилия пользователя", minLength = 2, maxLength = 16)
     private String lastName;
 
-    @Schema(type = "string", description = "телефон пользователя", pattern = "\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
+    @Schema(type = "string", description = "Телефон пользователя (формат: +7(000)000-00-00)",
+            pattern = "\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}-?\\d{2}-?\\d{2}")
     private String phone;
 
-    @Schema(type = "string", description = "роль пользователя", allowableValues = {"USER", "ADMIN"})
+    @Schema(type = "string", description = "Роль пользователя", allowableValues = {"USER", "ADMIN"})
     private Role role;
 
     /**
      * Конструктор для создания объекта RegisterDto с заданными параметрами.
      *
-     * @param username   логин пользователя.
-     * @param password   пароль пользователя.
-     * @param firstName  имя пользователя.
-     * @param lastName   фамилия пользователя.
-     * @param phone      телефон пользователя.
-     * @param role       роль пользователя.
+     * @param username  логин пользователя. Должен содержать от 4 до 32 символов и быть в формате электронной почты.
+     * @param password  пароль пользователя. Должен содержать от 8 до 16 символов.
+     * @param firstName имя пользователя. Должно содержать от 2 до 16 букв.
+     * @param lastName  фамилия пользователя. Должна содержать от 2 до 16 букв.
+     * @param phone     телефон пользователя. Должен быть в формате +7(000)000-00-00.
+     * @param role      роль пользователя. Может быть USER или ADMIN.
      */
     public RegisterDto(String username,
                        String password,
@@ -54,8 +61,7 @@ public class RegisterDto {
     /**
      * Конструктор по умолчанию.
      */
-    public RegisterDto() {
-    }
+    public RegisterDto() {}
 
     /**
      * Получает логин пользователя.
@@ -69,10 +75,15 @@ public class RegisterDto {
     /**
      * Устанавливает логин пользователя.
      *
-     * @param username логин пользователя.
+     * @param username логин пользователя. Должен содержать от 4 до 32 символов и быть в формате электронной почты.
+     * @throws IllegalArgumentException Если логин не соответствует требованиям по длине или формату.
      */
     public void setUsername(String username) {
-        this.username = username;
+        if (ValidationService.isValidLength(username, 4, 32) && ValidationService.isValidUsername(username)) {
+            this.username = username;
+        } else {
+            throw new IllegalArgumentException("Логин должен содержать от 4 до 32 символов и быть в формате \"mail@gmail.com\"");
+        }
     }
 
     /**
@@ -87,10 +98,15 @@ public class RegisterDto {
     /**
      * Устанавливает пароль пользователя.
      *
-     * @param password пароль пользователя.
+     * @param password пароль пользователя. Должен содержать от 8 до 16 символов.
+     * @throws IllegalArgumentException Если пароль не соответствует требованиям по длине.
      */
     public void setPassword(String password) {
-        this.password = password;
+        if (ValidationService.isValidLength(password, 8, 16)) {
+            this.password = password;
+        } else {
+            throw new IllegalArgumentException("Пароль должен содержать от 8 до 16 символов");
+        }
     }
 
     /**
@@ -105,10 +121,15 @@ public class RegisterDto {
     /**
      * Устанавливает имя пользователя.
      *
-     * @param firstName имя пользователя.
+     * @param firstName имя пользователя. Должно содержать от 2 до 16 букв.
+     * @throws IllegalArgumentException Если имя не соответствует требованиям по длине или символам.
      */
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if (ValidationService.isValidSymbol(firstName) && ValidationService.isValidLength(firstName, 2, 16)) {
+            this.firstName = firstName;
+        } else {
+            throw new IllegalArgumentException("Имя должно содержать от 2 до 16 букв");
+        }
     }
 
     /**
@@ -123,10 +144,15 @@ public class RegisterDto {
     /**
      * Устанавливает фамилию пользователя.
      *
-     * @param lastName фамилия пользователя.
+     * @param lastName фамилия пользователя. Должна содержать от 2 до 16 букв.
+     * @throws IllegalArgumentException Если фамилия не соответствует требованиям по длине или символам.
      */
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (ValidationService.isValidLength(lastName, 2, 16) && ValidationService.isValidSymbol(lastName)) {
+            this.lastName = lastName;
+        } else {
+            throw new IllegalArgumentException("Фамилия должна содержать от 2 до 16 букв");
+        }
     }
 
     /**
@@ -141,10 +167,15 @@ public class RegisterDto {
     /**
      * Устанавливает телефон пользователя.
      *
-     * @param phone телефон пользователя.
+     * @param phone телефон пользователя. Должен быть в формате +7(000)000-00-00.
+     * @throws IllegalArgumentException Если телефон не соответствует требованиям по формату.
      */
     public void setPhone(String phone) {
-        this.phone = phone;
+        if (ValidationService.isValidPhone(phone)) {
+            this.phone = phone;
+        } else {
+            throw new IllegalArgumentException("Телефон должен быть в формате +7(000)000-00-00");
+        }
     }
 
     /**
@@ -159,7 +190,7 @@ public class RegisterDto {
     /**
      * Устанавливает роль пользователя.
      *
-     * @param role роль пользователя.
+     * @param role роль пользователя. Может быть USER или ADMIN.
      */
     public void setRole(Role role) {
         this.role = role;
