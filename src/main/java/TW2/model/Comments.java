@@ -37,10 +37,12 @@ public class Comments {
      * @param text      текст комментария.
      * @param createdAt дата создания комментария.
      */
-    public Comments(Integer pk, String text, Long createdAt) {
+    public Comments(Integer pk, String text, Long createdAt, Users users, Ads ads) {
         this.pk = pk;
         this.text = text;
         this.createdAt = createdAt;
+        this.users = users;
+        this.ads = ads;
     }
 
     /**

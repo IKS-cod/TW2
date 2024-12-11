@@ -34,8 +34,12 @@ public class Images {
      *
      * @param id уникальный идентификатор изображения.
      */
-    public Images(Integer id) {
+    public Images(Integer id, String filePath, String pathForEndpoint, String mediaType, Ads ads) {
         this.id = id;
+        this.filePath = filePath;
+        this.pathForEndpoint = pathForEndpoint;
+        this.mediaType = mediaType;
+        this.ads = ads;
     }
 
     /**
