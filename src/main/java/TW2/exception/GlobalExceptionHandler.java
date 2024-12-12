@@ -31,4 +31,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Произошла ошибка: " + ex.getMessage());
     }
+    @ExceptionHandler(UserNotAuthenticatedException.class) // Обрабатывает все исключения
+    public ResponseEntity<String> handleAllExceptionsUserNotAuthenticatedException(Exception ex) {
+        // Логируем исключение
+        logger.error("Произошла ошибка: {}", ex.getMessage(), ex);
+
+        // Возвращаем ответ с сообщением об ошибке и статусом 401
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body("Произошла ошибка: " + ex.getMessage());
+    }
 }
