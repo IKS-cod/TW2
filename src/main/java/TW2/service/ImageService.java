@@ -88,6 +88,7 @@ public class ImageService {
 
         deleteExistingImage(imageFromDb);
         Images updatedImage = createImageEntity(image, imageFromDb.getAds());
+        imagesRepository.deleteById(imageFromDb.getId());
         Path getFilePathFromDb = Paths.get(updatedImage.getFilePath());
         Files.write(getFilePathFromDb, image.getBytes());
         imagesRepository.save(updatedImage);
