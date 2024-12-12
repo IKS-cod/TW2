@@ -67,6 +67,7 @@ public class AdController {
      * @return Объект AdDto, представляющий добавленное объявление.
      * @throws IOException Если произошла ошибка при обработке изображения.
      */
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Добавление объявления")
     public AdDto addAd(@RequestPart("properties") CreateOrUpdateAdDto ad,
@@ -83,6 +84,7 @@ public class AdController {
      * @param id Идентификатор объявления.
      * @return Объект ExtendedAdDto, содержащий информацию об объявлении.
      */
+
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
     public ExtendedAdDto getAdById(@PathVariable Integer id) {
@@ -99,7 +101,7 @@ public class AdController {
      * @param ad Данные для обновления объявления.
      * @return Объект AdDto, представляющий обновленное объявление.
      */
-    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasAuthority('ADMIN')")
+    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasRole('ADMIN')")
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление информации об объявлении")
     public AdDto updateAd(@PathVariable Integer id, @RequestBody CreateOrUpdateAdDto ad) {
@@ -115,7 +117,7 @@ public class AdController {
      * @param id Идентификатор объявления для удаления.
      * @throws IOException Если произошла ошибка при удалении объявления.
      */
-    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasAuthority('ADMIN')")
+    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление объявления")
     public void removeAd(@PathVariable Integer id) throws IOException {
@@ -146,7 +148,7 @@ public class AdController {
      * @return URL обновленного изображения.
      * @throws IOException Если произошла ошибка при обработке изображения.
      */
-    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasAuthority('ADMIN')")
+    @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasRole('ADMIN')")
     @PatchMapping("/{id}/image")
     @Operation(summary = "Обновление картинки объявления")
     public String updateAdImage(@PathVariable Integer id,
