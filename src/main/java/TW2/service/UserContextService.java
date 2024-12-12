@@ -35,7 +35,7 @@ public class UserContextService {
      */
     public UserDetails getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if(authentication.getPrincipal().toString().equals("anonymousUser")&&!authentication.isAuthenticated()){
             logger.warn("Attempt to access current user without authentication.");
             throw new UserNotAuthenticatedException("No authenticated user found");
         }

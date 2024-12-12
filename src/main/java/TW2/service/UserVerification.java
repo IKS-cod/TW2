@@ -2,6 +2,7 @@ package TW2.service;
 
 import TW2.exception.AdNotFoundException;
 import TW2.exception.CommentNotFoundException;
+import TW2.exception.UserNotAuthenticatedException;
 import TW2.model.Ads;
 import TW2.model.Comments;
 import TW2.repository.AdsRepository;

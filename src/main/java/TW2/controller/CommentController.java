@@ -40,7 +40,6 @@ public class CommentController {
      * @param id Идентификатор объявления.
      * @return Объект CommentsDto, содержащий список комментариев.
      */
-   // @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
     @GetMapping("/{id}/comments")
     @Operation(summary = "Получение комментариев объявления")
     public CommentsDto getComments(@PathVariable Integer id) {
@@ -57,7 +56,6 @@ public class CommentController {
      * @param comment Данные комментария для добавления.
      * @return Объект CommentDto, представляющий добавленный комментарий.
      */
-   // @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
     @PostMapping("/{id}/comments")
     @Operation(summary = "Добавление комментария к объявлению")
     public CommentDto addComment(@PathVariable Integer id, @RequestBody CreateOrUpdateCommentDto comment) {
@@ -75,7 +73,7 @@ public class CommentController {
      * @param comment Данные для обновления комментария.
      * @return Объект CommentDto, представляющий обновленный комментарий.
      */
-    @PreAuthorize("@userVerification.verificationUserForComment(#commentId) || hasRole('ADMIN')")
+    @PreAuthorize("@userVerification.verificationUserForComment(#commentId) || hasAuthority('ADMIN')")
     @PatchMapping("/{adId}/comments/{commentId}")
     @Operation(summary = "Обновление комментария")
     public CommentDto updateComment(@PathVariable Integer adId, @PathVariable Integer commentId,
@@ -92,7 +90,7 @@ public class CommentController {
      * @param adId Идентификатор объявления.
      * @param commentId Идентификатор комментария для удаления.
      */
-    @PreAuthorize("@userVerification.verificationUserForComment(#commentId) || hasRole('ADMIN')")
+    @PreAuthorize("@userVerification.verificationUserForComment(#commentId) || hasAuthority('ADMIN')")
     @Transactional
     @DeleteMapping("/{adId}/comments/{commentId}")
     @Operation(summary = "Удаление комментария")
