@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,7 @@ public class UserController {
      *
      * @param newPasswordDto Данные для обновления пароля.
      */
+
     @PostMapping("/set_password")
     @Operation(summary = "Обновление пароля")
     public void updatePassword(@RequestBody NewPasswordDto newPasswordDto) {
@@ -49,6 +51,7 @@ public class UserController {
      *
      * @return Объект UserDto, содержащий информацию о пользователе.
      */
+
     @GetMapping("/me")
     @Operation(summary = "Получение информации об авторизованном пользователе")
     public UserDto getUser() {
@@ -64,6 +67,7 @@ public class UserController {
      * @param updateUserDto Данные для обновления пользователя.
      * @return Объект UpdateUserDto с обновленной информацией.
      */
+
     @PatchMapping("/me")
     @Operation(summary = "Обновление информации об авторизованном пользователе")
     public UpdateUserDto updateUser(@RequestBody UpdateUserDto updateUserDto) {
@@ -79,6 +83,7 @@ public class UserController {
      * @param image Новое изображение для аватара.
      * @throws IOException Если произошла ошибка при обработке изображения.
      */
+
     @PatchMapping("/me/image")
     @Operation(summary = "Обновление аватара авторизованного пользователя")
     public void updateUserAvatar(@RequestParam("image") MultipartFile image) throws IOException {
