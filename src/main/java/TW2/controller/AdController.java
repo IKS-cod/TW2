@@ -149,7 +149,7 @@ public class AdController {
      * @throws IOException Если произошла ошибка при обработке изображения.
      */
     @PreAuthorize("@userVerification.verificationUserForAds(#id) || hasAuthority('ADMIN')")
-    @PatchMapping("/{id}/image")
+    @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновление картинки объявления")
     public String updateAdImage(@PathVariable Integer id,
                                 @RequestParam("image") MultipartFile image) throws IOException {
