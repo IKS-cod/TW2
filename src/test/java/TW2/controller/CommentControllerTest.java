@@ -1,5 +1,4 @@
 package TW2.controller;
-
 import TW2.dto.CommentDto;
 import TW2.dto.CreateOrUpdateCommentDto;
 import TW2.dto.Role;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +24,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.Base64Utils;
 
@@ -34,7 +31,11 @@ import java.util.List;
 
 import static TW2.dto.Role.USER;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -62,9 +63,11 @@ public class CommentControllerTest {
     @BeforeEach
     public void setup() {
         // Set up an admin user manually
-        Authentication auth = new UsernamePasswordAuthenticationToken("admin", "password", AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+        Authentication auth = new UsernamePasswordAuthenticationToken("admin", "password",
+                AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
+
     @AfterEach
     void clear() {
         commentsRepository.deleteAll();
@@ -100,17 +103,17 @@ public class CommentControllerTest {
         usersRepository.save(usersForSaveDb);
 
         //Проверка наличия Users в БД
-        Assertions.assertEquals(usersRepository.findByEmail(email).get(), usersForSaveDb);
+        assertEquals(usersRepository.findByEmail(email).get(), usersForSaveDb);
         // Настройка аутентификации
         UserDetails userDetails = mock(UserDetails.class);
-        Mockito.when(userDetails.getUsername()).thenReturn(email);
+        when(userDetails.getUsername()).thenReturn(email);
 
         Authentication authentication = mock(Authentication.class);
-        Mockito.when(authentication.isAuthenticated()).thenReturn(true);
-        Mockito.when(authentication.getPrincipal()).thenReturn(userDetails);
+        when(authentication.isAuthenticated()).thenReturn(true);
+        when(authentication.getPrincipal()).thenReturn(userDetails);
 
         SecurityContext securityContext = mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
 
         SecurityContextHolder.setContext(securityContext);
 
@@ -175,10 +178,7 @@ public class CommentControllerTest {
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200); // Assuming 201 Created is expected
         assertThat(responseEntity.getBody()).isNotNull();
         List<Comments> comments = commentsRepository.findByAdsPk(idAds);
-        Assertions.assertEquals(textForCreateOrUpdateCommentDto, comments.get(0).getText());
+        assertEquals(textForCreateOrUpdateCommentDto, comments.get(0).getText());
 
     }
-
-
-
-    }
+}
