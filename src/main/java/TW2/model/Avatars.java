@@ -36,6 +36,14 @@ public class Avatars {
     public Avatars() {
     }
 
+    public Avatars(Integer id, String filePath, String pathForEndpoint, String mediaType, Users users) {
+        this.id = id;
+        this.filePath = filePath;
+        this.pathForEndpoint = pathForEndpoint;
+        this.mediaType = mediaType;
+        this.users = users;
+    }
+
     /**
      * Получает путь для доступа к аватару через API.
      *
